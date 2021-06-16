@@ -39,5 +39,11 @@ Remember to clean up after the old mod version in case you need to. Things like 
     }
 ```
 
-**How to use:** This is a mod. Put the `HotReloadHelper.dll` file into `Mods` folder.
+## How to use
+This is a mod. Put the `HotReloadHelper.dll` file into `Mods` folder.
 Put the mods that need to be hot reload into `Mods\HotReload` folder, each time the `your_mod.dll` file is updated or `Ctrl+F5` is pressed, the mod will be reloaded.
+
+Only tested on the Hollow Knight v1.5 with [latest Modding API](https://github.com/HollowKnight-Modding/HollowKnight.Modding/actions).
+
+## Known Issue
+- Hot reload mods are not shown in the mods menu.
