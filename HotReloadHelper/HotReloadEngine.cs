@@ -46,7 +46,7 @@ namespace HollowKnight.HotReloadHelper {
 
         private void Awake() {
             StartCoroutine(DelayAction(() => {
-                ReloadMods();
+                ReloadAllDlls();
                 WatchDlls();
             }));
         }
@@ -76,18 +76,18 @@ namespace HollowKnight.HotReloadHelper {
 
         private void Update() {
             if ((Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)) && Input.GetKeyDown(KeyCode.F5)) {
-                ReloadMods();
+                ReloadAllDlls();
                 // TODO Restart the game and then restore the scene.
             }
         }
 
         private void OnDestroy() {
-            UnloadMods();
+            UnloadAllDlls();
             watcher?.Dispose();
         }
 
-        private void ReloadMods() {
-            UnloadMods();
+        private void ReloadAllDlls() {
+            UnloadAllDlls();
 
             var files = Directory.GetFiles(HotReloadDirectory, "*.dll");
             if (files.Length > 0) {
@@ -101,13 +101,11 @@ namespace HollowKnight.HotReloadHelper {
             }
         }
 
-        private void UnloadMods() {
-            foreach (ITogglableMod togglableMod in hotReloadedMods.SelectMany(pair => pair.Value)) {
-                UnloadMod(togglableMod);
+        private void UnloadAllDlls() {
+            foreach (string path in hotReloadedMods.Keys.ToList()) {
+                UnloadDll(path);
             }
-
             hotReloadedMods.Clear();
-
             Modding.Logger.Log("Unloaded all old mod instances");
         }
 
